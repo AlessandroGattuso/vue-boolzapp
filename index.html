@@ -55,7 +55,7 @@
                 <img class="rounded-circle me-2" :src="`./assets/avatar${chat.avatar}.jpg`" alt="Image not found">
                 <div class="d-flex flex-column justify-content-evenly">
                   <span class="chat-name">{{ chat.name }}</span>
-                  <span class="gray-small-text">{{ chat.messages[chat.messages.length - 1].message}}</span>
+                  <span class="gray-small-text">{{ returnLastMessage(chat) }}</span>
                 </div>
               </div>
               <span class="gray-small-text">12:00</span>
@@ -83,7 +83,7 @@
           <template v-for="(mess, index) in contacts[chatActive].messages">
             <div class="d-flex position-relative w-100" :class="(mess.status === 'sent') ? 'justify-content-end' : ''">
         
-              <div class="message position-relative" :class="(mess.status === 'sent') ? 'sent-message' : 'received-message'" @click.right = "rightClickEvent(index)">
+              <div class="message position-relative" :class="(mess.status === 'sent') ? 'sent-message' : 'received-message'">
                 <div class="message-text">
                   <span>{{ mess.message }}</span>
                 </div>

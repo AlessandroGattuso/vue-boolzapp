@@ -204,7 +204,6 @@ createApp({
     },
     getRealTime(){
       let date = new Date();
-      
       return this.twoDigits(date.getDate()) + "/" + this.twoDigits(date.getMonth()) + "/" + this.twoDigits(date.getFullYear()) + " " + this.twoDigits(date.getHours()) + ":" + this.twoDigits(date.getMinutes()) + ":" + this.twoDigits(date.getSeconds());
     },
     twoDigits(s){
@@ -214,7 +213,8 @@ createApp({
       return s
     },
     deleteMessage(i){
-        this.contacts[this.chatActive].messages.splice(i, 1);
+      let wow = this.contacts[this.chatActive].messages
+      wow.splice(i, 1);     
     },
     addNewMessage(){
       if(this.newMessage.split(" ").join("") != ''){
@@ -238,6 +238,9 @@ createApp({
           )
         }, 2000)
       }
+    },
+    returnLastMessage(chat){
+      return (chat.messages.length > 0) ? chat.messages[chat.messages.length - 1].message : '';
     }
   }
 }).mount('#app');
