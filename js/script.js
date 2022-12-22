@@ -181,7 +181,6 @@ createApp({
   },
   computed: {
      filterContact(){
-
        if(this.search.split(" ").join("") != ''){
          this.contacts.map((e) => {
             e.visible = true
@@ -190,9 +189,8 @@ createApp({
             }
          })
        }
-       else{
-        this.contacts.map((e) => e.visible = true)
-       }
+       else
+        this.contacts.map((e) => e.visible = true); 
      }
   },
   methods: {
@@ -231,11 +229,10 @@ createApp({
         
         
         setTimeout(() => {
-          let answer = this.contacts[this.chatActive].messages.filter((e) => e.status == 'received');
           this.contacts[this.chatActive].messages.push(
             {
               date: this.getRealTime(),
-              message: answer[answer.length - 1].message,
+              message: 'Lo so',
               status: 'received'
             }
           )
