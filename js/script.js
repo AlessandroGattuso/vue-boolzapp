@@ -6,12 +6,12 @@ createApp({
       chatActive: 0,
       newMessage: '',
       search: '',
-      isWriting: false,
       contacts: [
         {
           name: 'Michele',
           avatar: '_1',
           visible: true,
+          isWriting: false,
           lastAccess: '12:00',
           messages: [
             {
@@ -36,6 +36,7 @@ createApp({
           name: 'Fabio',
           avatar: '_2',
           visible: true,
+          isWriting: false,
           lastAccess: '12:00',
           messages: [
             {
@@ -60,6 +61,7 @@ createApp({
           name: 'Samuele',
           avatar: '_3',
           visible: true,
+          isWriting: false,
           lastAccess: '12:00',
           messages: [
             {
@@ -85,6 +87,7 @@ createApp({
           avatar: '_4',
           lastAccess: '12:00',
           visible: true,
+          isWriting: false,
               messages: [
                 {
                   date: '10/01/2020 15:30:55',
@@ -103,6 +106,7 @@ createApp({
           name: 'Alessandro L.',
           avatar: '_5',
           visible: true,
+          isWriting: false,
           lastAccess: '12:00',
           messages: [
             {
@@ -122,6 +126,7 @@ createApp({
           name: 'Claudia',
           avatar: '_6',
           visible: true,
+          isWriting: false,
           lastAccess: '12:00',
           messages: [
             {
@@ -146,6 +151,7 @@ createApp({
           name: 'Federico',
           avatar: '_7',
           visible: true,
+          isWriting: false,
           lastAccess: '12:00',
           messages: [
             {
@@ -165,6 +171,7 @@ createApp({
         name: 'Davide',
         avatar: '_8',
         visible: true,
+        isWriting: false,
         lastAccess: '12:00',
         messages: [
           {
@@ -189,29 +196,18 @@ createApp({
     }
   },
   computed: {
-     filterContact(){
-       if(this.search.split(" ").join("") != ''){
-         this.contacts.map((e) => {
-            e.visible = true
-            if(!e.name.toLowerCase().match(this.search.split(" ").join("").toLowerCase())){
-              e.visible = false
-            }
-         })
-       }
-       else
-        this.contacts.map((e) => e.visible = true); 
-     }
+    
   },
   methods: {
     changeChat(i){
       this.chatActive = i;
     },
     getTime(d){
-      let date = luxon.DateTime.fromFormatExplain(d, "dd/MM/yyyy hh:mm:ss")
-      return date.result.hour + ":" + date.rawMatches[9]
+      let date = luxon.DateTime.fromFormatExplain(d, "dd/MM/yyyy hh:mm:ss");
+      return date.result.hour + ":" + date.rawMatches[9];
     },
     getRealTime(){
-      return luxon.DateTime.now().toFormat("dd/MM/yyyy hh:mm:ss");;
+      return luxon.DateTime.now().toFormat("dd/MM/yyyy hh:mm:ss");
     },
     deleteMessage(i){
       this.contacts[this.chatActive].messages.splice(i, 1);     
@@ -226,7 +222,7 @@ createApp({
           }
         )
         this.newMessage = '';
-        
+        this.contacts[this.chatActive].isWriting = true
         
         setTimeout(() => {
           const realTime = this.getRealTime();
@@ -237,9 +233,32 @@ createApp({
               status: 'received'
             }
           )
+          this.contacts[this.chatActive].isWriting = false
           this.contacts[this.chatActive].lastAccess = this.getTime(realTime);
         }, 2000);
       }
+    },
+    filterContact(){
+       if(this.search.split(" ").join("") != ''){
+         this.contacts.map((e) => {
+            e.visible = true
+            if(!e.name.toLowerCase().match(this.search.split(" ").join("").toLowerCase())){
+              e.visible = false
+            }
+         })
+       }
+       else
+        this.contacts.map((e) => e.visible = true); 
+    },
+    checkLastMessage(chat){
+      if(chat.messages.length > 0){
+        if(chat.messages[chat.messages.length - 1].message.length > 16)
+          return chat.messages[chat.messages.length - 1].message.slice(0,16) + "..."
+        else
+          return chat.messages[chat.messages.length - 1].message
+      }
+      else
+        return ''
     }
   }
 }).mount('#app');

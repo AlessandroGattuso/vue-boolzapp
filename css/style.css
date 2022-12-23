@@ -74,6 +74,7 @@ body{
 }
 
 .chat-body{
+  overflow-y: auto;
   height: calc(100% - 108px);
   width: 100%;
 }
@@ -94,6 +95,7 @@ body{
 }
 
 .message-text{
+  word-break: break-all;
   width: 90%;
 }
 
