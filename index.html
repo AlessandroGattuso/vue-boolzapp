@@ -111,7 +111,10 @@
             <div class="col-8 d-flex align-items-center justify-content-center p-0">
               <input type="text" v-model="newMessage"  @keyup.enter="addNewMessage" class="form-control" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1">
             </div>
-            <div class="col-2 d-flex align-items-center justify-content-center"><i class="fa-solid fa-microphone fs-4 cursor-pointer text-secondary"></i></div>
+            <div class="col-2 d-flex align-items-center justify-content-center">
+              <i v-if="newMessage == ''" class="fa-solid fa-microphone fs-4 cursor-pointer text-secondary"></i>
+              <button v-else class="border-0" @click="addNewMessage"><i class="fa-regular fa-paper-plane fs-4 cursor-pointer text-secondary"></i></button>
+            </div>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ createApp({
       chatActive: 0,
       newMessage: '',
       search: '',
+      dt: luxon.DateTime,
       contacts: [
         {
           name: 'Michele',
@@ -203,11 +204,15 @@ createApp({
       this.chatActive = i;
     },
     getTime(d){
-      let date = luxon.DateTime.fromFormatExplain(d, "dd/MM/yyyy hh:mm:ss");
+      let date = this.dt.fromFormatExplain(d, "dd/MM/yyyy hh:mm:ss");
+      console.log(date)
       return date.result.hour + ":" + date.rawMatches[9];
     },
     getRealTime(){
-      return luxon.DateTime.now().toFormat("dd/MM/yyyy hh:mm:ss");
+      let date = luxon.DateTime.fromISO(this.dt.now(), {
+        zone: "Europe/Rome"
+      });
+      return date.toLocaleString(luxon.DateTime.DATE_SHORT) + " " + date.toLocaleString(luxon.DateTime.TIME_24_WITH_SECONDS);
     },
     deleteMessage(i){
       this.contacts[this.chatActive].messages.splice(i, 1);     
@@ -259,6 +264,6 @@ createApp({
       }
       else
         return ''
-    }
+    },
   }
 }).mount('#app');
