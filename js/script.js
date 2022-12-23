@@ -6,11 +6,13 @@ createApp({
       chatActive: 0,
       newMessage: '',
       search: '',
+      isWriting: false,
       contacts: [
         {
           name: 'Michele',
           avatar: '_1',
           visible: true,
+          lastAccess: '12:00',
           messages: [
             {
               date: '10/01/2020 15:30:55',
@@ -34,6 +36,7 @@ createApp({
           name: 'Fabio',
           avatar: '_2',
           visible: true,
+          lastAccess: '12:00',
           messages: [
             {
               date: '20/03/2020 16:30:00',
@@ -57,6 +60,7 @@ createApp({
           name: 'Samuele',
           avatar: '_3',
           visible: true,
+          lastAccess: '12:00',
           messages: [
             {
               date: '28/03/2020 10:10:40',
@@ -79,6 +83,7 @@ createApp({
        {
           name: 'Alessandro B.',
           avatar: '_4',
+          lastAccess: '12:00',
           visible: true,
               messages: [
                 {
@@ -98,6 +103,7 @@ createApp({
           name: 'Alessandro L.',
           avatar: '_5',
           visible: true,
+          lastAccess: '12:00',
           messages: [
             {
               date: '10/01/2020 15:30:55',
@@ -116,6 +122,7 @@ createApp({
           name: 'Claudia',
           avatar: '_6',
           visible: true,
+          lastAccess: '12:00',
           messages: [
             {
               date: '10/01/2020 15:30:55',
@@ -139,6 +146,7 @@ createApp({
           name: 'Federico',
           avatar: '_7',
           visible: true,
+          lastAccess: '12:00',
           messages: [
             {
               date: '10/01/2020 15:30:55',
@@ -157,6 +165,7 @@ createApp({
         name: 'Davide',
         avatar: '_8',
         visible: true,
+        lastAccess: '12:00',
         messages: [
           {
             date: '10/01/2020 15:30:55',
@@ -198,22 +207,14 @@ createApp({
       this.chatActive = i;
     },
     getTime(d){
-      const date = luxon.DateTime.fromFormatExplain(d, "dd/MM/yyyy hh:mm:ss")
+      let date = luxon.DateTime.fromFormatExplain(d, "dd/MM/yyyy hh:mm:ss")
       return date.result.hour + ":" + date.rawMatches[9]
     },
     getRealTime(){
       return luxon.DateTime.now().toFormat("dd/MM/yyyy hh:mm:ss");;
     },
-    twoDigits(s){
-      if(s < 10){
-        console.log("0" + s)
-        return "0" + s;
-      }
-      return s
-    },
     deleteMessage(i){
-      let wow = this.contacts[this.chatActive].messages
-      wow.splice(i, 1);     
+      this.contacts[this.chatActive].messages.splice(i, 1);     
     },
     addNewMessage(){
       if(this.newMessage.split(" ").join("") != ''){
@@ -228,14 +229,16 @@ createApp({
         
         
         setTimeout(() => {
+          const realTime = this.getRealTime();
           this.contacts[this.chatActive].messages.push(
             {
-              date: this.getRealTime(),
+              date: realTime,
               message: 'Lo so',
               status: 'received'
             }
           )
-        }, 2000)
+          this.contacts[this.chatActive].lastAccess = this.getTime(realTime);
+        }, 2000);
       }
     }
   }
