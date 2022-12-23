@@ -198,16 +198,15 @@ createApp({
       this.chatActive = i;
     },
     getTime(d){
-      d = d.split(/\D/);
-      d = new Date(Date.UTC(d[0], --d[1], d[2]||1, d[3]||0, d[4]||0, d[5]||0));
-      return d.getHours() + ":" + d.getMinutes()
+      const date = luxon.DateTime.fromFormatExplain(d, "dd/MM/yyyy hh:mm:ss")
+      return date.result.hour + ":" + date.rawMatches[9]
     },
     getRealTime(){
-      let date = new Date();
-      return this.twoDigits(date.getDate()) + "/" + this.twoDigits(date.getMonth()) + "/" + this.twoDigits(date.getFullYear()) + " " + this.twoDigits(date.getHours()) + ":" + this.twoDigits(date.getMinutes()) + ":" + this.twoDigits(date.getSeconds());
+      return luxon.DateTime.now().toFormat("dd/MM/yyyy hh:mm:ss");;
     },
     twoDigits(s){
       if(s < 10){
+        console.log("0" + s)
         return "0" + s;
       }
       return s
@@ -238,9 +237,6 @@ createApp({
           )
         }, 2000)
       }
-    },
-    returnLastMessage(chat){
-      return (chat.messages.length > 0) ? chat.messages[chat.messages.length - 1].message : '';
     }
   }
 }).mount('#app');
