@@ -71,8 +71,8 @@
             <img class="rounded-circle me-2" :src="`./assets/avatar${contacts[chatActive].avatar}.jpg`" alt="Image not found">
             <div class="d-flex flex-column justify-content-evenly">
               <span>{{ contacts[chatActive].name }}</span>
-              <span v-if="!contacts[this.chatActive].isWriting" class="gray-small-text">Ultimo accesso alle {{ contacts[chatActive].lastAccess }}</span>
-              <span v-else class="gray-small-text text-success">sta scrivendo...</span>
+              <span v-show="!contacts[this.chatActive].isWriting" class="gray-small-text">Ultimo accesso alle {{ contacts[chatActive].lastAccess }}</span>
+              <span v-show="contacts[this.chatActive].isWriting" ref="status" class="gray-small-text text-success"></span>
             </div>
           </div>
           <div class="d-flex gap-3 justify-content-end align-items-center fs-5 me-2">

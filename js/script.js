@@ -227,19 +227,24 @@ createApp({
         )
         this.newMessage = '';
         this.contacts[this.chatActive].isWriting = true
-        
+        this.$refs.status.innerText = 'sta scrivendo...'
+
         setTimeout(() => {
-          const realTime = this.getRealTime();
           this.contacts[this.chatActive].messages.push(
             {
-              date: realTime,
+              date: this.getRealTime(),
               message: 'Lo so',
               status: 'received'
             }
           )
-          this.contacts[this.chatActive].isWriting = false
-          this.contacts[this.chatActive].lastAccess = this.getTime(realTime);
+          this.$refs.status.innerText = 'online'
+
+          setTimeout(()=>{
+            this.contacts[this.chatActive].isWriting = false
+            this.contacts[this.chatActive].lastAccess = this.getTime(this.getRealTime());
+          }, 2000)
         }, 2000);
+
       }
     },
     filterContact(){
@@ -268,6 +273,6 @@ createApp({
     },
     deleteContact(){
       this.contacts.splice(this.chatActive, 1)
-    }
+    },
   }
 }).mount('#app');
