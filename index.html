@@ -78,7 +78,14 @@
           <div class="d-flex gap-3 justify-content-end align-items-center fs-5 me-2">
             <i class="fa-solid fa-magnifying-glass cursor-pointer icon"></i>
             <i class="fa-solid fa-paperclip cursor-pointer icon"></i>
-            <i class="fa-solid fa-ellipsis-vertical cursor-pointer icon"></i>
+            <div class="dropdown">
+              <button class="rounded-circle my-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical cursor-pointer icon"></i></button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item">Info  contatto</a></li>
+                <li><a class="dropdown-item" @click="deleteChat">Elimina Chat</a></li>
+                <li><a class="dropdown-item" @click="deleteContact">Elimina Contatto</a></li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="p-5 chat-body d-flex flex-column gap-3">

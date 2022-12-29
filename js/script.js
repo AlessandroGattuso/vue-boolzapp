@@ -205,7 +205,6 @@ createApp({
     },
     getTime(d){
       let date = this.dt.fromFormatExplain(d, "dd/MM/yyyy hh:mm:ss");
-      console.log(date)
       return date.result.hour + ":" + date.rawMatches[9];
     },
     getRealTime(){
@@ -257,13 +256,18 @@ createApp({
     },
     checkLastMessage(chat){
       if(chat.messages.length > 0){
-        if(chat.messages[chat.messages.length - 1].message.length > 16)
-          return chat.messages[chat.messages.length - 1].message.slice(0,16) + "..."
-        else
-          return chat.messages[chat.messages.length - 1].message
+        return (chat.messages[chat.messages.length - 1].message.length > 16) ? 
+            chat.messages[chat.messages.length - 1].message.slice(0,16) + "..." :
+            chat.messages[chat.messages.length - 1].message
       }
       else
         return ''
     },
+    deleteChat(){
+      this.contacts[this.chatActive].messages.splice(0, this.contacts[this.chatActive].messages.length)
+    },
+    deleteContact(){
+      this.contacts.splice(this.chatActive, 1)
+    }
   }
 }).mount('#app');

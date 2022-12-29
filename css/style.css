@@ -109,7 +109,7 @@ body{
   opacity: 1;
 }
 
-.dropdown{
+.message .dropdown{
   opacity: 0;
   z-index: 2;
   position: absolute;
@@ -134,8 +134,8 @@ body{
   color: rgb(151, 151, 151);
 }
 
-div.dropdown-item:focus,
-div.dropdown-item:active{
+.message .dropdown-item:focus,
+.message .dropdown-item:active{
   background-color: rgb(230, 230, 230);
 }
 
