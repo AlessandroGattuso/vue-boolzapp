@@ -12,7 +12,7 @@ createApp({
           name: 'Michele',
           avatar: '_1',
           visible: true,
-          isWriting: false,
+          status: 'offline',
           lastAccess: '12:00',
           messages: [
             {
@@ -37,7 +37,7 @@ createApp({
           name: 'Fabio',
           avatar: '_2',
           visible: true,
-          isWriting: false,
+          status: 'offline',
           lastAccess: '12:00',
           messages: [
             {
@@ -62,7 +62,7 @@ createApp({
           name: 'Samuele',
           avatar: '_3',
           visible: true,
-          isWriting: false,
+          status: 'offline',
           lastAccess: '12:00',
           messages: [
             {
@@ -88,7 +88,7 @@ createApp({
           avatar: '_4',
           lastAccess: '12:00',
           visible: true,
-          isWriting: false,
+          status: 'offline',
               messages: [
                 {
                   date: '10/01/2020 15:30:55',
@@ -107,7 +107,7 @@ createApp({
           name: 'Alessandro L.',
           avatar: '_5',
           visible: true,
-          isWriting: false,
+          status: 'offline',
           lastAccess: '12:00',
           messages: [
             {
@@ -127,7 +127,7 @@ createApp({
           name: 'Claudia',
           avatar: '_6',
           visible: true,
-          isWriting: false,
+          status: 'offline',
           lastAccess: '12:00',
           messages: [
             {
@@ -152,7 +152,7 @@ createApp({
           name: 'Federico',
           avatar: '_7',
           visible: true,
-          isWriting: false,
+          status: 'offline',
           lastAccess: '12:00',
           messages: [
             {
@@ -172,7 +172,7 @@ createApp({
         name: 'Davide',
         avatar: '_8',
         visible: true,
-        isWriting: false,
+        status: 'offline',
         lastAccess: '12:00',
         messages: [
           {
@@ -226,8 +226,8 @@ createApp({
           }
         )
         this.newMessage = '';
-        this.contacts[this.chatActive].isWriting = true
-        this.$refs.status.innerText = 'sta scrivendo...'
+        
+        this.contacts[this.chatActive].status = "isWriting";
 
         setTimeout(() => {
           this.contacts[this.chatActive].messages.push(
@@ -237,10 +237,11 @@ createApp({
               status: 'received'
             }
           )
-          this.$refs.status.innerText = 'online'
+          
+          this.contacts[this.chatActive].status = "online";
 
           setTimeout(()=>{
-            this.contacts[this.chatActive].isWriting = false
+            this.contacts[this.chatActive].status = 'offline';
             this.contacts[this.chatActive].lastAccess = this.getTime(this.getRealTime());
           }, 2000)
         }, 2000);
