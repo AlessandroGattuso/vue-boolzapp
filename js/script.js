@@ -196,9 +196,6 @@ createApp({
       ]  
     }
   },
-  computed: {
-    
-  },
   methods: {
     changeChat(i){
       this.chatActive = i;
@@ -212,9 +209,6 @@ createApp({
         zone: "Europe/Rome"
       });
       return date.toLocaleString(luxon.DateTime.DATE_SHORT) + " " + date.toLocaleString(luxon.DateTime.TIME_24_WITH_SECONDS);
-    },
-    deleteMessage(i){
-      this.contacts[this.chatActive].messages.splice(i, 1);     
     },
     addNewMessage(){
       if(this.newMessage.split(" ").join("") != ''){
@@ -269,11 +263,11 @@ createApp({
       else
         return ''
     },
-    deleteChat(){
-      this.contacts[this.chatActive].messages.splice(0, this.contacts[this.chatActive].messages.length)
+    deleteAll(array){
+      array.splice(0, array.length)
     },
-    deleteContact(){
-      this.contacts.splice(this.chatActive, 1)
+    deleteOne(array, index){
+      array.splice(index, 1)
     },
   }
 }).mount('#app');

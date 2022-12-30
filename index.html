@@ -83,8 +83,8 @@
               <button class="rounded-circle my-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical cursor-pointer icon"></i></button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item">Info  contatto</a></li>
-                <li><a class="dropdown-item" @click="deleteChat">Elimina Chat</a></li>
-                <li><a class="dropdown-item" @click="deleteContact">Elimina Contatto</a></li>
+                <li><a class="dropdown-item" @click="deleteAll(contacts[chatActive].messages)">Elimina Chat</a></li>
+                <li><a class="dropdown-item" @click="deleteOne(contacts, chatActive)">Elimina Contatto</a></li>
               </ul>
             </div>
           </div>
@@ -102,7 +102,7 @@
                   <button class="rounded-circle my-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-angle-down"></i></button>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item">Info messaggio</a></li>
-                    <li><a class="dropdown-item" @click="deleteMessage(index)">Elimina messaggio</a></li>
+                    <li><a class="dropdown-item" @click="deleteOne(contacts[chatActive].messages, index)">Elimina messaggio</a></li>
                   </ul>
                 </div>
                 
@@ -120,7 +120,7 @@
               <input type="text" v-model="newMessage"  @keyup.enter="addNewMessage" class="form-control" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="col-2 d-flex align-items-center justify-content-center">
-              <i v-if="newMessage == ''" class="fa-solid fa-microphone fs-4 cursor-pointer text-secondary"></i>
+              <i v-if="`${newMessage.split(' ').join('')}` == ''" class="fa-solid fa-microphone fs-4 cursor-pointer text-secondary"></i>
               <button v-else class="border-0" @click="addNewMessage"><i class="fa-regular fa-paper-plane fs-4 cursor-pointer text-secondary"></i></button>
             </div>
           </div>
