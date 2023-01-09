@@ -114,14 +114,23 @@
         <div class="rectangle-container bg-gray write-bar p-0 d-flex justify-content-center">
           <div class="row h-100 d-flex justify-content-center w-100">
             <div class="col-2 d-flex align-items-center justify-content-center">
-                  <span class="cursor-pointer text-secondary"><i class="fa-regular fa-face-smile fs-4"></i></span>
+                <button class="border-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fa-regular fa-face-smile fs-4 cursor-pointer text-secondary"></i></button>
+                <!-- <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body small">
+                    ...
+                  </div>
+                </div> -->
             </div>
             <div class="col-8 d-flex align-items-center justify-content-center p-0">
-              <input type="text" v-model="newMessage"  @keyup.enter="addNewMessage" class="form-control" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1">
+              <input type="text" v-model="newMessage"  @keyup.enter="addNewMessage(chatActive)" class="form-control" placeholder="Scrivi un messaggio" aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="col-2 d-flex align-items-center justify-content-center">
               <i v-if="`${newMessage.split(' ').join('')}` == ''" class="fa-solid fa-microphone fs-4 cursor-pointer text-secondary"></i>
-              <button v-else class="border-0" @click="addNewMessage"><i class="fa-regular fa-paper-plane fs-4 cursor-pointer text-secondary"></i></button>
+              <button v-else class="border-0" @click="addNewMessage(chatActive)"><i class="fa-regular fa-paper-plane fs-4 cursor-pointer text-secondary"></i></button>
             </div>
           </div>
         </div>

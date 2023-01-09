@@ -210,9 +210,9 @@ createApp({
       });
       return date.toLocaleString(luxon.DateTime.DATE_SHORT) + " " + date.toLocaleString(luxon.DateTime.TIME_24_WITH_SECONDS);
     },
-    addNewMessage(){
+    addNewMessage(index){
       if(this.newMessage.split(" ").join("") != ''){
-        this.contacts[this.chatActive].messages.push(
+        this.contacts[index].messages.push(
           {
             date: this.getRealTime(),
             message: this.newMessage,
@@ -221,10 +221,10 @@ createApp({
         )
         this.newMessage = '';
         
-        this.contacts[this.chatActive].status = "isWriting";
+        this.contacts[index].status = "isWriting";
 
         setTimeout(() => {
-          this.contacts[this.chatActive].messages.push(
+          this.contacts[index].messages.push(
             {
               date: this.getRealTime(),
               message: 'Lo so',
@@ -232,11 +232,11 @@ createApp({
             }
           )
           
-          this.contacts[this.chatActive].status = "online";
+          this.contacts[index].status = "online";
 
           setTimeout(()=>{
-            this.contacts[this.chatActive].status = 'offline';
-            this.contacts[this.chatActive].lastAccess = this.getTime(this.getRealTime());
+            this.contacts[index].status = 'offline';
+            this.contacts[index].lastAccess = this.getTime(this.getRealTime());
           }, 2000)
         }, 2000);
 
@@ -268,6 +268,6 @@ createApp({
     },
     deleteOne(array, index){
       array.splice(index, 1)
-    },
+    }
   }
 }).mount('#app');
