@@ -205,10 +205,7 @@ createApp({
       return date.result.hour + ":" + date.rawMatches[9];
     },
     getRealTime(){
-      let date = luxon.DateTime.fromISO(this.dt.now(), {
-        zone: "Europe/Rome"
-      });
-      return date.toLocaleString(luxon.DateTime.DATE_SHORT) + " " + date.toLocaleString(luxon.DateTime.TIME_24_WITH_SECONDS);
+      return luxon.DateTime.now().toFormat("dd'/'MM'/'yyyy' 'hh':'mm':'ss");
     },
     addNewMessage(index){
       if(this.newMessage.split(" ").join("") != ''){
@@ -256,7 +253,7 @@ createApp({
     },
     checkLastMessage(chat){
       if(chat.messages.length > 0){
-        return (chat.messages[chat.messages.length - 1].message.length > 16) ? 
+        return (chat.messages[chat.messages.length - 1].message.length >= 17) ? 
             chat.messages[chat.messages.length - 1].message.slice(0,16) + "..." :
             chat.messages[chat.messages.length - 1].message
       }
