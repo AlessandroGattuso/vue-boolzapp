@@ -1,7 +1,7 @@
 const { createApp } = Vue;
 
 createApp({
-  data(){
+  data() {
     return {
       chatActive: 0,
       newMessage: '',
@@ -31,9 +31,9 @@ createApp({
               status: 'received'
             }
           ]
-       },
-       
-       {
+        },
+
+        {
           name: 'Fabio',
           avatar: '_2',
           visible: true,
@@ -56,9 +56,9 @@ createApp({
               status: 'sent'
             }
           ]
-       },
+        },
 
-       {
+        {
           name: 'Samuele',
           avatar: '_3',
           visible: true,
@@ -81,29 +81,29 @@ createApp({
               status: 'received'
             }
           ]
-       },
+        },
 
-       {
+        {
           name: 'Alessandro B.',
           avatar: '_4',
           lastAccess: '12:00',
           visible: true,
           status: 'offline',
-              messages: [
-                {
-                  date: '10/01/2020 15:30:55',
-                  message: 'Lo sai che ha aperto una nuova pizzeria?',
-                  status: 'sent'
-                },
-                {
-                  date: '10/01/2020 15:50:00',
-                  message: 'Si, ma preferirei andare al cinema',
-                  status: 'received'
-                }
-              ]
-       },
+          messages: [
+            {
+              date: '10/01/2020 15:30:55',
+              message: 'Lo sai che ha aperto una nuova pizzeria?',
+              status: 'sent'
+            },
+            {
+              date: '10/01/2020 15:50:00',
+              message: 'Si, ma preferirei andare al cinema',
+              status: 'received'
+            }
+          ]
+        },
 
-       {
+        {
           name: 'Alessandro L.',
           avatar: '_5',
           visible: true,
@@ -120,10 +120,10 @@ createApp({
               message: 'Va bene, stasera la sento',
               status: 'received'
             }
-          ]   
-       },
+          ]
+        },
 
-       {
+        {
           name: 'Claudia',
           avatar: '_6',
           visible: true,
@@ -146,9 +146,9 @@ createApp({
               status: 'sent'
             }
           ]
-       },
+        },
 
-       {
+        {
           name: 'Federico',
           avatar: '_7',
           visible: true,
@@ -166,49 +166,49 @@ createApp({
               status: 'received'
             }
           ]
-       },
+        },
 
-       {
-        name: 'Davide',
-        avatar: '_8',
-        visible: true,
-        status: 'offline',
-        lastAccess: '12:00',
-        messages: [
-          {
-            date: '10/01/2020 15:30:55',
-            message: 'Ciao, andiamo a mangiare la pizza stasera?',
-            status: 'received'
-          },
-          {
-            date: '10/01/2020 15:50:00',
-            message: 'No, l\'ho già mangiata ieri, ordiniamo sushi!',
-            status: 'sent'
-          },
-          {
-            date: '10/01/2020 15:51:00',
-            message: 'OK!!',
-            status: 'received'
-          }
-        ],
-       },
+        {
+          name: 'Davide',
+          avatar: '_8',
+          visible: true,
+          status: 'offline',
+          lastAccess: '12:00',
+          messages: [
+            {
+              date: '10/01/2020 15:30:55',
+              message: 'Ciao, andiamo a mangiare la pizza stasera?',
+              status: 'received'
+            },
+            {
+              date: '10/01/2020 15:50:00',
+              message: 'No, l\'ho già mangiata ieri, ordiniamo sushi!',
+              status: 'sent'
+            },
+            {
+              date: '10/01/2020 15:51:00',
+              message: 'OK!!',
+              status: 'received'
+            }
+          ],
+        },
 
-      ]  
+      ]
     }
   },
   methods: {
-    changeChat(i){
+    changeChat(i) {
       this.chatActive = i;
     },
-    getTime(d){
+    getTime(d) {
       let date = this.dt.fromFormatExplain(d, "dd/MM/yyyy hh:mm:ss");
       return date.result.hour + ":" + date.rawMatches[9];
     },
-    getRealTime(){
+    getRealTime() {
       return luxon.DateTime.now().toFormat("dd'/'MM'/'yyyy' 'hh':'mm':'ss");
     },
-    addNewMessage(index){
-      if(this.newMessage.split(" ").join("") != ''){
+    addNewMessage(index) {
+      if (this.newMessage.split(" ").join("") != '') {
         this.contacts[index].messages.push(
           {
             date: this.getRealTime(),
@@ -217,7 +217,7 @@ createApp({
           }
         )
         this.newMessage = '';
-        
+
         this.contacts[index].status = "isWriting";
 
         setTimeout(() => {
@@ -228,10 +228,10 @@ createApp({
               status: 'received'
             }
           )
-          
+
           this.contacts[index].status = "online";
 
-          setTimeout(()=>{
+          setTimeout(() => {
             this.contacts[index].status = 'offline';
             this.contacts[index].lastAccess = this.getTime(this.getRealTime());
           }, 2000)
@@ -239,31 +239,31 @@ createApp({
 
       }
     },
-    filterContact(){
-       if(this.search.split(" ").join("") != ''){
-         this.contacts.map((e) => {
-            e.visible = true
-            if(!e.name.toLowerCase().match(this.search.split(" ").join("").toLowerCase())){
-              e.visible = false
-            }
-         })
-       }
-       else
-        this.contacts.map((e) => e.visible = true); 
+    filterContact() {
+      if (this.search.split(" ").join("") != '') {
+        this.contacts.map((e) => {
+          e.visible = true
+          if (!e.name.split(" ").join("").toLowerCase().match(this.search.split(" ").join("").toLowerCase())) {
+            e.visible = false
+          }
+        })
+      }
+      else
+        this.contacts.map((e) => e.visible = true);
     },
-    checkLastMessage(chat){
-      if(chat.messages.length > 0){
-        return (chat.messages[chat.messages.length - 1].message.length >= 17) ? 
-            chat.messages[chat.messages.length - 1].message.slice(0,16) + "..." :
-            chat.messages[chat.messages.length - 1].message
+    checkLastMessage(chat) {
+      if (chat.messages.length > 0) {
+        return (chat.messages[chat.messages.length - 1].message.length >= 17) ?
+          chat.messages[chat.messages.length - 1].message.slice(0, 16) + "..." :
+          chat.messages[chat.messages.length - 1].message
       }
       else
         return ''
     },
-    deleteAll(array){
+    deleteAll(array) {
       array.splice(0, array.length)
     },
-    deleteOne(array, index){
+    deleteOne(array, index) {
       array.splice(index, 1)
     }
   }
